@@ -1,0 +1,228 @@
+SetWebhook setWebhook = new SetWebhook("https://zavod.heat-point.com:8443");
+                setWebhook.setMaxConnections(40);
+                Webhook ee = new Webhook() {
+
+                    private final RestApi restApi = new RestApi();
+                    @Override
+                    public void startServer() throws TelegramApiException {
+                        final HttpServer grizzlyServer;
+                        ResourceConfig rc = new ResourceConfig();
+                        rc.register(restApi);
+                        rc.register(JacksonFeature.class);
+                        rc.register(DefaultExceptionMapper.class);
+                        grizzlyServer = GrizzlyHttpServerFactory.createHttpServer(getBaseURI(),rc);
+
+                    try {
+                     //  grizzlyServer.start();
+                        grizzlyServer.stop();
+                        grizzlyServer.start();
+                        System.out.println("Grizly START !!!!");
+                    } catch (
+                    IOException e) {
+                        throw new TelegramApiException("Error starting webhook server", e);
+                    }
+                    }
+
+                    @Override
+                    public void registerWebhook(WebhookBot webhookBot) {
+                        this.restApi.registerCallback(webhookBot);
+                        System.out.println("regcol bak");
+                        System.out.println(webhookBot);
+                    }
+
+                    @Override
+                    public void setInternalUrl(String s) {
+                    }
+
+                    @Override
+                    public void setKeyStore(String s, String s1) throws TelegramApiException {
+
+                    }
+                    private URI getBaseURI() {
+                        String internalUrl;
+                        internalUrl = "http://0.0.0.0:9000";
+                        return URI.create(internalUrl);
+                    }
+                };
+     //           ee.setInternalUrl("http://localhost:8443");
+                WBot botik = new WBot();
+
+                System.out.println("Creat boot api");
+
+                TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class,ee);
+
+                System.out.println(setWebhook.getUrl());
+                System.out.println(setWebhook.getMaxConnections());
+
+            //    ee.registerWebhook(botik);
+           //     botsApi.registerBot(botik, setWebhook);
+
+                ee.registerWebhook(botik);
+                ee.startServer();
+                System.out.println("end registr");
+
+
+                public boolean GetUserInfoFromDB (long idUser, long idChat) {
+                     String Query = "SELECT * FROM users where `id_user` = "+idUser+" and `id_chat` = "+ idChat +" LIMIT 1";
+                  //   Query = "SELECT * FROM users where `id_user` = "+idUser+" and `id_chat` = 999 LIMIT 1";
+                     boolean Reet = false;
+                     try {
+                         Connection connection= DriverManager.getConnection(dburl, dbusername, dbpassword);
+                         Statement statement=connection.createStatement();
+                         ResultSet resultSet=statement.executeQuery(Query);
+              //           int columns = resultSet.getMetaData().getColumnCount();
+              //           System.out.println(" " + columns);
+                         while (resultSet.next()){
+
+              //               for (int i = 1; i <= columns; i++){
+               //                  System.out.print(i + " ");
+                //                 System.out.print(resultSet.getMetaData().getColumnName(i) + " ");
+                 //                System.out.print(resultSet.getMetaData().getColumnTypeName(i) + " ");
+                  //               System.out.print(resultSet.getMetaData().getColumnLabel(i) + " ");
+                   //              System.out.print(resultSet.getMetaData().getColumnType(i) + " ");
+                    //             System.out.print(resultSet.getMetaData().getColumnClassName(i));
+                               //  System.out.print(resultSet.getString(i) + "\t");
+                    //             System.out.println();
+                     //        }
+              //               System.out.print(resultSet.getMetaData().toString());
+
+                             UIF.setId(resultSet.getLong(1));
+                             UIF.setFirst_name(resultSet.getString(2));
+                             UIF.setLast_name(resultSet.getString(3));
+                             UIF.setUser_name(resultSet.getString(4));
+                             UIF.setName(resultSet.getString(5));
+                             UIF.setSurname(resultSet.getString(6));
+                             UIF.setFname(resultSet.getString(7));
+                             UIF.setId_user(resultSet.getLong(8));
+                             UIF.setId_chat(resultSet.getLong(9));
+                             UIF.setType(resultSet.getString(10));
+                             UIF.setPhone(resultSet.getString(11));
+                             UIF.setPhone1(resultSet.getString(12));
+                             UIF.setE_mail(resultSet.getString(13));
+                             UIF.setInt_phone(resultSet.getInt(14));
+                             UIF.setPosition(resultSet.getString(15));
+                             UIF.setPass(resultSet.getString(16));
+                             UIF.setAccess(resultSet.getByte(17));
+                             UIF.setLast_access(resultSet.getLong(18));
+                             UIF.setReq_count(resultSet.getLong(19));
+                             UIF.setSerch_ok(resultSet.getByte(20));
+                             UIF.setAccess_chat(resultSet.getByte(21));
+                             UIF.setAccess_serch(resultSet.getByte(22));
+                             UIF.setAccess_it(resultSet.getByte(23));
+                             UIF.setAccess_vlan(resultSet.getByte(24));
+                             UIF.setAccess_printers(resultSet.getByte(25));
+                             UIF.setAccess_ip(resultSet.getByte(26));
+                             UIF.setAccess_admin(resultSet.getByte(27));
+                             UIF.setAccess_mat(resultSet.getByte(28));
+                             UIF.setLanguage(resultSet.getString(29));
+                             Reet = true;
+                         }
+                         resultSet.close();
+                         statement.close();
+                         connection.close();
+                     } catch (SQLException e) {
+                         e.printStackTrace();
+                     }
+                     return Reet;
+                 }
+                 public boolean InsertNewUserToDB() {
+                     boolean Reet = false;
+                     try {
+                         String Query = "INSERT INTO `users` (`first_name`,`last_name`,`user_name`,`name`,`surname`,`fname`,`id_user`,`id_chat`, `type`, `phone`, `phone1`, `e_mail`, `int_phone`, `position`, `pass`, `access`, `last_access`, `req_count`, `serch_ok`, `access_chat`, `access_serch`, `access_it`, `access_vlan`, `access_printers`, `access_ip`, `access_admin`, `access_mat`, `language`) ";
+                         Query = Query + "VALUES('"+UIF.getFirst_name()+"','"+UIF.getLast_name()+"','"+UIF.getUser_name()+"','"+UIF.getName()+"','"+UIF.getSurname()+"','"+UIF.getFname()+"',"+UIF.getId_user()+","+UIF.getId_chat()+",'"+UIF.getType()+"','"+UIF.getPhone()+"','"+UIF.getPhone1()+"','"+UIF.getE_mail()+"','"+UIF.getInt_phone()+"','"+UIF.getPosition()+"','"+UIF.getPass()+"',"+UIF.getAccess()+","+UIF.getLast_access()+","+UIF.getReq_count()+","+UIF.getSerch_ok()+","+UIF.getAccess_chat()+","+UIF.getAccess_serch()+","+UIF.getAccess_it()+","+UIF.getAccess_vlan()+","+UIF.getAccess_printers()+","+UIF.getAccess_ip()+","+UIF.getAccess_admin()+","+UIF.getAccess_mat()+",'"+UIF.getLanguage()+"');";
+                 //        System.out.println(Query);
+                         Connection connection= DriverManager.getConnection(dburl, dbusername, dbpassword);
+                         Statement statement=connection.createStatement();
+                         if (statement.executeUpdate(Query) == 1) { Reet = true; }
+                         statement.close();
+                         connection.close();
+                     } catch (SQLException e) { e.printStackTrace();   }
+                  return Reet;
+                 }
+                 public boolean UpdateUserInDB() {
+                     boolean Reet = false;
+                     try {
+                         String Query = "UPDATE `users` SET `first_name` = ?, `last_name` = ?, `user_name` = ?, `name` = ?, `surname` = ?, `fname` = ?, `type` = ?, `phone` = ?, `phone1` = ?, `e_mail` = ?, `int_phone` = ?, `position` = ?, `pass` = ?, `access` = ?, `last_access` = ?, `req_count` = ?, `serch_ok` = ?, `access_chat` = ?, `access_serch` = ?, `access_it` = ?, `access_vlan` = ?, `access_printers` = ?, `access_ip` = ?, `access_admin` = ?, `access_mat` = ?, `language` = ? WHERE `users`.`id_user` = ? and `users`.`id_chat` = ?;";
+             //            System.out.println(Query);
+                         Connection connection= DriverManager.getConnection(dburl, dbusername, dbpassword);
+                         PreparedStatement statement = connection.prepareStatement(Query);
+                         statement.setString(1,UIF.getFirst_name());
+                         statement.setString(2,UIF.getLast_name());
+                         statement.setString(3,UIF.getUser_name());
+                         statement.setString(4,UIF.getName());
+                         statement.setString(5,UIF.getSurname());
+                         statement.setString(6,UIF.getFname());
+                         statement.setString(7,UIF.getType());
+                         statement.setString(8,UIF.getPhone());
+                         statement.setString(9,UIF.getPhone1());
+                         statement.setString(10,UIF.getE_mail());
+                         statement.setInt(11,UIF.getInt_phone());
+                         statement.setString(12,UIF.getPosition());
+                         statement.setString(13,UIF.getPass());
+                         statement.setByte(14,UIF.getAccess());
+                         statement.setLong(15,UIF.getLast_access());
+                         statement.setLong(16,UIF.getReq_count());
+                         statement.setByte(17,UIF.getSerch_ok());
+                         statement.setByte(18,UIF.getAccess_chat());
+                         statement.setByte(19,UIF.getAccess_serch());
+                         statement.setByte(20,UIF.getAccess_it());
+                         statement.setByte(21,UIF.getAccess_vlan());
+                         statement.setByte(22,UIF.getAccess_printers());
+                         statement.setByte(23,UIF.getAccess_ip());
+                         statement.setByte(24,UIF.getAccess_admin());
+                         statement.setByte(25,UIF.getAccess_mat());
+                         statement.setString(26,UIF.getLanguage());
+
+                         statement.setLong(27,UIF.getId_user());
+                         statement.setLong(28,UIF.getId_chat());
+                         if (statement.executeUpdate() == 1) { Reet = true; }
+                         statement.close();
+                         connection.close();
+                     } catch (SQLException e) { e.printStackTrace();   }
+                     return Reet;
+                 }
+    //        jj.put("ferma", ja);
+    //        System.out.println(jj);
+    //        System.out.println(jj.getJSONArray("ferma"));
+    //        List<String> ls;
+    //        ls = getValuesForGivenKey(ja, "ru");
+    //        System.out.println(ls);
+
+
+try {
+            JSONArray jsonArrayAll = new JSONArray();
+            JSONArray jsonArrayLine = new JSONArray();
+            JSONObject jsonObjButton1 = new JSONObject();
+            JSONObject jsonObjButton2 = new JSONObject();
+            JSONObject jsonObjButton3 = new JSONObject();
+
+            jsonObjButton1.put("text", "\uD83D\uDEE0 "+Dictionary.Translate("Mode",this.Language));
+            jsonObjButton1.put("callback_data","mode");
+ //           jsonObjButton1.put("url","https://google.com");
+            jsonArrayLine.put(jsonObjButton1);
+
+            jsonObjButton2.put("text", "⚙ "+Dictionary.Translate("Settings",this.Language));
+            jsonObjButton2.put("callback_data","settings");
+            jsonArrayLine.put(jsonObjButton2);
+
+            jsonObjButton3.put("text", "\uD83D\uDEAA "+Dictionary.Translate("Exit",this.Language));
+            jsonObjButton3.put("callback_data","exit");
+            jsonArrayLine.put(jsonObjButton3);
+
+       //     jsonArrayAll.put(jsonArrayLine);
+            jsonArrayAll.put(jsonArrayLine);
+     //       jsonObjMain.append("inline_keyboard",jsonArrayLine);
+            jsonObjMain.append("inline_keyboard",jsonArrayLine);
+    //        jsonObjMain.put("inline_keyboard",jsonArrayAll);
+            System.out.println(jsonObjMain);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        for (int i = 0; i < jsonArrayItTask.length(); i++) {
+                           JSONObject itTask = jsonArrayItTask.getJSONObject(i);
+                           for (Iterator it = itTask.keys(); it.hasNext(); ) {
+                               String key = (String) it.next();
+                               Reet.put(key,itTask.get(key));
+                           }
