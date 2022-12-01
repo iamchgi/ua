@@ -12,12 +12,8 @@ import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-//import org.telegram.telegrambots.updatesreceivers.DefaultWebhook;
-
-import org.telegram.telegrambots.util.WebhookUtils;
+import org.telegram.telegrambots.updatesreceivers.DefaultWebhook;
 import ua.mario.bot.Bot;
-import ua.mario.bot.DefaultWebhook1;
-import ua.mario.bot.TelegramBotsApi1;
 import ua.mario.bot.WBot;
 import ua.mario.jdbc.GetResultSetJSON;
 import ua.mario.jdbc.dbsettings;
@@ -33,7 +29,7 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(Main.class);
  private static ua.mario.utils.Debug LOG = new Debug();
     public static void main(String[] args) {
-        log.info("App Start.");
+        log.info("App Start!!!");
         LOG.Debug("App Start.");
         for(int i = 0; i < args.length; i++) {
             System.err.println(args[i]);    }
@@ -103,7 +99,7 @@ public class Main {
         if (res.getBotType().equals("LONGPOOLING")) {
             LOG.Debug("The LONGPOOLING starting!");
             try {
-                TelegramBotsApi1 botsApi = new TelegramBotsApi1(DefaultBotSession.class);
+                TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
                 botsApi.registerBot(new Bot());
             } catch (TelegramApiException e) {
                 e.printStackTrace();
@@ -111,7 +107,7 @@ public class Main {
         } else {
             LOG.Debug("The WEBHOOK!");
             try {
-                DefaultWebhook1 webhook = new DefaultWebhook1();
+                DefaultWebhook webhook = new DefaultWebhook();
           //    SetWebhook setWebhook = new SetWebhook("https://bot-api.heat-point.com:443/758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg/");
               webhook.setInternalUrl("http://0.0.0.0:1445/callback/");
               WBot botik = new WBot();
@@ -119,7 +115,7 @@ public class Main {
           //    webhook.startServer();
 
                // TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class, webhook);
-                TelegramBotsApi1 telegramBotsApi = new TelegramBotsApi1(DefaultBotSession.class, webhook);
+                TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class, webhook);
                 telegramBotsApi.registerBot(botik ,new SetWebhook("https://bot-api.heat-point.com:8443"));
 
 //                botsApi.registerBot(botik, SetWebhook.builder().url("https://bot-api.heat-point.com:443/758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg/").build());
