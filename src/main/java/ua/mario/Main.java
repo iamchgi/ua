@@ -100,7 +100,7 @@ public class Main {
              System.exit(1); }
         else { LOG.Debug("DB - OK"); }
 
-        if (!res.getBotType().equals("LONGPOOLING")) {
+        if (res.getBotType().equals("LONGPOOLING")) {
             LOG.Debug("The LONGPOOLING starting!");
             try {
                 TelegramBotsApi1 botsApi = new TelegramBotsApi1(DefaultBotSession.class);
