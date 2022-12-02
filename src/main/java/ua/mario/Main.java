@@ -26,10 +26,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
- private static ua.mario.utils.Debug LOG = new Debug();
+ //   private static final Logger log = LoggerFactory.getLogger(Main.class);
+    private static ua.mario.utils.Debug LOG = new Debug();
     public static void main(String[] args) {
-        log.info("App Start!!!");
+       // log.info("App Start!!!");
         LOG.Debug("App Start.");
         for(int i = 0; i < args.length; i++) {
             System.err.println(args[i]);    }
