@@ -3,7 +3,8 @@ package ua.mario;
 public class res {
 
    static String US = "\uD83C\uDDFA\uD83C\uDDF2";
-   static String RU = "\uD83C\uDDF7\uD83C\uDDFA";
+ //  static String RU = "\uD83C\uDDF7\uD83C\uDDFA";
+   static String RU = "\uD83D\uDCA9";
    static String EN = "\uD83C\uDDEC\uD83C\uDDE7";
    static String EU = "\uD83C\uDDEA\uD83C\uDDFA";
    static String UA = "\ud83c\uddfa\ud83c\udde6";
@@ -22,8 +23,11 @@ public class res {
     //  public static String bot2Name = "mario_1c_bot";
     //  public static String bot2Token = "936694173:AAGPpaNuGPsxWgsS_2J7yIvxnt79TkR96Ec";
 
-    public static String botName = "mario_it_bot";
-    public static String botToken = "758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg";
+    public static String botName = "mario_info_bot";
+    public static String botToken = "658807816:AAH-y1ZdKRWOKQBsjBq-KDgqJhKHaQqnyQs";
+
+    //   public static String botName = "mario_it_bot";
+ //   public static String botToken = "758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg";
     private static String botType = "LONGPOOLING";
     private static String bot_Function = "all";
     private static Boolean DEBUGTERMINAL = true;

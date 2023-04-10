@@ -26,7 +26,7 @@ public class DefaultMenu {
     static String BaseURL = "https://api.telegram.org/bot";
     static String MidlURL = "/sendMessage?chat_id=";
     static String PastURL = "&text=";
-    static String Token = "758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg";
+    static String Token = res.botToken;
 
     static String MenuCaptionText;
     static String UserMenuText;

@@ -5,7 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ua.mario.utils.Debug;
 
 import static ua.mario.bot.Action.Autorization;
@@ -47,18 +50,21 @@ public class Bot extends TelegramLongPollingBot {
 
              }
              // We check if the update has a message and the message has text
-       //      Message message = new Message();
-       //      if (message.hasText()) {
-       //         SendMessage echoMessage = new SendMessage();
-       //         echoMessage.setChatId(Long.toString(message.getChatId()));
-       //         echoMessage.setText("Hey, heres your message:\n" + message.getText());
-       //         System.out.println(echoMessage.toString());
-     //           try {
-    //                 execute(echoMessage);
-     //           } catch (TelegramApiException e) {
-               //    BotLogger.error(LOGTAG, e);
-    //            }
-         //    }
+             Message message = new Message();
+             if (message.hasText()) {
+                SendMessage echoMessage = new SendMessage();
+                echoMessage.setChatId(Long.toString(message.getChatId()));
+                echoMessage.setText("Hey, heres your message:\n" + message.getText());
+                System.out.println(echoMessage.toString());
+
+                    try {
+                        execute(echoMessage);
+                    } catch (TelegramApiException e) {
+                        throw new RuntimeException(e);
+                    }
+
+            //       BotLogger.error(LOGTAG, e);
+             }
     }
 
     public void setBotUserName (String botName) { this.botName = botName; }

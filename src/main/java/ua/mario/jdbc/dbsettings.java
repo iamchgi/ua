@@ -9,7 +9,7 @@ public class dbsettings {
     public static String  dbName = "jtelega";
     public static String  dburl="jdbc:mysql://"+dbHost+":"+dbPort+"/"+dbName+"?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true";
     public static String  dbusername="jtelega";
-    public static String  dbpassword="jtelega%$#@!";
+    public static String  dbpassword="JtElEgA777%$#@!";
 
   public static void setDBSettings (String dbhost,String dbport,String dbname,String DBusername,String DBpassword) {
         dbHost = dbhost;

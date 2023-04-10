@@ -5,9 +5,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
  //   private static final Logger log = LoggerFactory.getLogger(Main.class);
@@ -107,16 +109,16 @@ public class Main {
         } else {
             LOG.Debug("The WEBHOOK!");
             try {
-                DefaultWebhook webhook = new DefaultWebhook();
-          //    SetWebhook setWebhook = new SetWebhook("https://bot-api.heat-point.com:443/758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg/");
+                WBot webHookBot = new WBot();
+                Map<Integer, String> map = new HashMap<>();
+                map.clear();
+                map.put(1,"");
+                  DefaultWebhook webhook = new DefaultWebhook();
+         //     SetWebhook setWebhook = new SetWebhook("https://bot-api.heat-point.com:443/758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg/");
               webhook.setInternalUrl("http://0.0.0.0:1445/callback/");
-              WBot botik = new WBot();
-              webhook.registerWebhook(botik);
-          //    webhook.startServer();
-
-               // TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class, webhook);
+               webhook.registerWebhook(webHookBot);
                 TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class, webhook);
-                telegramBotsApi.registerBot(botik ,new SetWebhook("https://bot-api.heat-point.com:8443"));
+                telegramBotsApi.registerBot(webHookBot ,new SetWebhook("https://bot-api.heat-point.com:8443"));
 
 //                botsApi.registerBot(botik, SetWebhook.builder().url("https://bot-api.heat-point.com:443/758577117:AAGZnoqoX-iWF7ZFJvd9noe-AHTJaYU4xUg/").build());
 

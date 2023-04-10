@@ -65,7 +65,7 @@ public class UserInfo {
     @JsonProperty("access_vlan")
     private byte access_vlan = 10;
     @JsonProperty("access_menu")
-    private byte access_menu = 10;
+    private byte access_menu = 9;
     @JsonProperty("access_ip")
     private byte access_ip = 10;
     @JsonProperty("access_admin")

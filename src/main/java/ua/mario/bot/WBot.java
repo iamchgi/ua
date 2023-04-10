@@ -1,7 +1,4 @@
 package ua.mario.bot;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -13,7 +10,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 /**
  *
  */
-@RestController
 public class WBot extends TelegramWebhookBot {
 
     @Override
@@ -29,8 +25,10 @@ public class WBot extends TelegramWebhookBot {
   //  @Override
   //  public void onRegister() {
  //       System.out.println("on Регистер____________");
- //   }
-  @PostMapping(value = "/webhook")
+ //   } @PostMapping(value = "/webhook")
+  //
+
+  @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         System.out.println(update.getMessage());
         if (update.hasMessage()) {

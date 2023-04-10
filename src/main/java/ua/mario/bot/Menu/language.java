@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import ua.mario.objects.Dictionary;
+import ua.mario.res;
 
 public class language extends DefaultMenu {
 @Override
@@ -21,7 +22,7 @@ public class language extends DefaultMenu {
         jsonObjButton1.put("callback_data","ua");
         jsonArrayLine.put(jsonObjButton1);
 
-        jsonObjButton2.put("text", "\uD83C\uDDF7\uD83C\uDDFA "+Dictionary.Translate("Russian",this.Language));
+        jsonObjButton2.put("text", res.GetFlag("ru") + " " + Dictionary.Translate("Russian",this.Language));
         jsonObjButton2.put("callback_data","ru");
         jsonArrayLine.put(jsonObjButton2);
 
